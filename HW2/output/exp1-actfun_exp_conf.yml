@@ -1,0 +1,18 @@
+const:
+  bn_act: before
+  bn_layer: none
+  lr: 0.001
+  num_epoch: 15
+  optim: adam
+  sched: const
+  seed: 3456
+  skip: 0
+name: exp1-actfun
+param:
+  act:
+  - sigmoid
+  - tanh
+  - relu
+  - elu
+  - lrelu
+  - silu
