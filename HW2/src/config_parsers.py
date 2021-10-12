@@ -56,7 +56,6 @@ class OptimAndSched():
     )
     optim_opts = list(optim_dict.keys())
 
-    sched_opts = ['const', 'step', 'c', 'reduce_on_plateau', 'anneal']
     sched_dict = dict(
         const = lambda x: None,
         step = torch.optim.lr_scheduler.StepLR,
@@ -64,14 +63,27 @@ class OptimAndSched():
         reduce_on_plateau = torch.optim.lr_scheduler.ReduceLROnPlateau,
         anneal = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts
     )
+    sched_opts = list(sched_dict.keys())
+
+    sched_args_default = dict(
+        const = dict(),
+        step = dict(step_size=15, gamma=0.1), # per documentation
+        exp = dict(gamma=0.99), # https://www.programcreek.com/python/example/124027/torch.optim.lr_scheduler.ExponentialLR
+        reduce_on_plateau = dict(patience=10),
+        anneal = dict(T_0 = 10, T_mult=2) #https://arxiv.org/pdf/1608.03983.pdf
+    )
 
     def __init__(self, learning_rate=1e-3, optim='Adam', sched='const',
-                 optim_args = dict(), sched_args = dict()):
+                 optim_args = dict(), sched_args = dict(), override_schedargs = False):
         optim, sched = optim.lower(), sched.lower()
         if optim not in self.optim_opts or sched not in self.sched_opts:
             raise('Not allowed options')
         self.optim_fun = partial(self.optim_dict[optim], lr=learning_rate, **optim_args)
-        self.sched_fun = partial(self.sched_dict[sched], **sched_args)
+
+        sched_args_final = dict(**sched_args) # to avoid shallow copy
+        if not override_schedargs:
+            sched_args_final = dict(**sched_args_final, **self.sched_args_default[sched])
+        self.sched_fun = partial(self.sched_dict[sched], **sched_args_final)
 
     def get_optim_and_sched(self, model):
         optimizer = self.optim_fun(model.parameters())

@@ -1,0 +1,17 @@
+const:
+  act: silu
+  bn_act: before
+  bn_layer: all
+  lr: 0.1
+  num_epoch: 60
+  optim: sgd
+  seed: 3456
+  skip: 2
+name: exp5-sgdsched
+param:
+  sched:
+  - const
+  - step
+  - exp
+  - reduce_on_plateau
+  - anneal

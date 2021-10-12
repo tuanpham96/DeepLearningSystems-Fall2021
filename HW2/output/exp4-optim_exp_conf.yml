@@ -1,0 +1,16 @@
+const:
+  act: silu
+  bn_act: before
+  bn_layer: all
+  num_epoch: 15
+  sched: const
+  seed: 3456
+  skip: 2
+name: exp4-optim
+param:
+  lr:
+  - 0.001
+  - 0.1
+  optim:
+  - sgd
+  - adam

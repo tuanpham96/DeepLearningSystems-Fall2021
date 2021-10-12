@@ -21,7 +21,7 @@ def get_accuracy(logit, target):
     return 100.0 * corrects/batch_size
 
 @timerfunc
-def train(model, device, data_loader, optimizer, criterion, scheduler=None, epoch=0):
+def train(model, device, data_loader, optimizer, criterion, scheduler=None, sched_type=None, epoch=0):
     model.train()
     train_loss = 0.0
     train_acc = 0.0
@@ -40,7 +40,7 @@ def train(model, device, data_loader, optimizer, criterion, scheduler=None, epoc
         train_loss += loss.detach().item()
         train_acc += get_accuracy(logits, labels).item()
 
-        if scheduler is not None:
+        if sched_type == 'anneal':
             scheduler.step(epoch + cnt / iters)
 
     cnt += 1
@@ -101,7 +101,7 @@ def run_each_model(config, device, data_loaders, tqdm_args=dict(), print_perf=Tr
 
         # train
         (bm_dict['train_loss'][i], bm_dict['train_acc'][i]), bm_dict['train_time'][i] \
-            = train(model, device, train_loader, optimizer, criterion, scheduler, i)
+            = train(model, device, train_loader, optimizer, criterion, scheduler, sched_type, i)
 
         # validate
         (bm_dict['valid_loss'][i], bm_dict['valid_acc'][i]), bm_dict['valid_time'][i] \

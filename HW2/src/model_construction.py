@@ -3,13 +3,15 @@ import torch.nn.functional as F
 from torch import nn
 
 def make_fclayer(inp_dim, out_dim, act_fun = nn.ReLU(), bn_on = True, bn_b4_act = True):
-    layer = [nn.Linear(inp_dim, out_dim)]
+    fc = nn.Linear(inp_dim, out_dim)
     bn = nn.BatchNorm1d(out_dim)
     if bn_on:
         if bn_b4_act:
-            layer.extend([bn, act_fun])
+            layer = [fc, bn, act_fun]
         else:
-            layer.extend([act_fun, bn])
+            layer = [fc, act_fun, bn]
+    else:
+        layer = [fc, act_fun]
 
     return nn.Sequential(*layer)
 
@@ -67,7 +69,11 @@ class ModelBM(nn.Module):
         self.conv3 = ResidualLayer(32, 64, *conv_args, skip_conv_dims[2], npoolb4skip[2])
 
         self.flatten = nn.Flatten(start_dim=1)
-        self.fc1 = make_fclayer(4*4*64, 500, act_fun, bn_fc, bn_b4_act)
+        # self.fc1 = make_fclayer(4*4*64, 500, act_fun, bn_fc, bn_b4_act)
+
+        self.fc1 = make_fclayer(2*2*64, 500, act_fun, bn_fc, bn_b4_act)
+        self.pool = nn.MaxPool2d(2, 2)
+
         self.fc2 = nn.Sequential(
             nn.Dropout(0.5),
             nn.Linear(500, 10),
@@ -84,6 +90,7 @@ class ModelBM(nn.Module):
         if self.skip == 1: res = x
         x = self.conv3(x, res)
 
+        x = self.pool(x)
         x = self.flatten(x)
 
         x = self.fc1(x)
@@ -93,4 +100,7 @@ class ModelBM(nn.Module):
 def weight_init(m):
     if isinstance(m, nn.Conv2d) or isinstance(m, nn.Linear):
         nn.init.xavier_uniform_(m.weight, gain=nn.init.calculate_gain('relu'))
-        nn.init.zeros_(m.bias)
+        try:
+            nn.init.zeros_(m.bias)
+        except:
+            pass

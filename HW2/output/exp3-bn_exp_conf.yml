@@ -1,0 +1,17 @@
+const:
+  act: silu
+  lr: 0.001
+  num_epoch: 15
+  optim: adam
+  sched: const
+  seed: 3456
+  skip: 2
+name: exp3-bn
+param:
+  bn_act:
+  - before
+  - after
+  bn_layer:
+  - conv
+  - fc
+  - all
