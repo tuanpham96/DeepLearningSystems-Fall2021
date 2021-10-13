@@ -1,0 +1,13 @@
+const:
+  act: silu
+  bn_act: before
+  bn_layer: all
+  lr: 0.001
+  num_epoch: 60
+  optim: adam
+  seed: 3456
+  skip: 2
+name: exp5-adamconst
+param:
+  sched:
+  - const

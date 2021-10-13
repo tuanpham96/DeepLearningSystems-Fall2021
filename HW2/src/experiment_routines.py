@@ -19,7 +19,7 @@ def run_experiment(exp_config, device, data_loaders,
 
     # save config first
     exp_conf_file = os.path.join(out_path, exp_name + '_exp_conf.yml')
-    if restart_exp:
+    if restart_exp or not os.path.exists(exp_conf_file):
         with open(exp_conf_file, 'w') as file:
             yaml.dump(exp_config, file, default_flow_style=False)
 
