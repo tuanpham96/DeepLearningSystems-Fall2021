@@ -109,7 +109,7 @@ def run_each_model(model_info, data_files, output_files, data_config, model_conf
 
                     print("Epoch {} Batch {} Loss {:.4f} Accuracy {:.4f}".format(
                         epoch+1, batch, train_loss.result(), train_accuracy.result()), flush=True)
-
+                    break
             ckpt_save_path = ckpt_manager.save()
             print("Saving checkpoint for epoch {} in {}".format(epoch+1, ckpt_save_path))
             print("Time for 1 epoch: {} secs\n".format(time.time() - start))
@@ -176,7 +176,7 @@ def run_each_model(model_info, data_files, output_files, data_config, model_conf
         prediction = predicted_sentences
     )
 
-    with open(output_files['trainstat'], 'wb') as f:
+    with open(output_files['results'], 'wb') as f:
         pickle.dump(dict(
             model_info      = model_info,
             data_files      = data_files,
