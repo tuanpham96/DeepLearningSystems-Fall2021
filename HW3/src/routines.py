@@ -21,12 +21,11 @@ class CustomSchedule(tf.keras.optimizers.schedules.LearningRateSchedule):
         arg2 = step * (self.warmup_steps**-1.5)
         return tf.math.rsqrt(self.d_model) * tf.math.minimum(arg1, arg2)
 
-def scale_vocab_sizes(model_config, enc_nwords, dec_nwords):
+def configure_vocab_sizes(model_config, enc_nwords, dec_nwords):
     config = dict(**model_config) # to avoid shallow copy and unwanted modification
-    vocab_size_factor = config['vocab_size_factor']
     del config['vocab_size_factor']
-    config['vocab_size_enc'] = int(vocab_size_factor * enc_nwords)
-    config['vocab_size_dec'] = int(vocab_size_factor * dec_nwords)
+    config['vocab_size_enc'] = enc_nwords
+    config['vocab_size_dec'] = dec_nwords
     return config
 
 def configure_outputfiles(model_id, output_path = 'output', checkpoint_path='model'):
@@ -44,10 +43,13 @@ def configure_datafiles(data_path, train_filename, nonbreaking_filenames):
 
 def run_each_model(model_info, data_files, output_files, data_config, model_config, train_config, translator_sentences):
 
+    def_max_vocab_size = 2**14
+    data_config['max_vocab_size'] = int(model_config['vocab_size_factor'] * def_max_vocab_size)
+
     # Load dataset
     dataset, token_dset = load_datasets(data_files, **data_config)
 
-    model_config = scale_vocab_sizes(model_config, token_dset['input']['num_words'], token_dset['target']['num_words'])
+    model_config = configure_vocab_sizes(model_config, token_dset['input']['num_words'], token_dset['target']['num_words'])
 
     tf.keras.backend.clear_session()
 
