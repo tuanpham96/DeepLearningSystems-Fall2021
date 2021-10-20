@@ -1,0 +1,42 @@
+#Anything in this file, followed by a period (and an upper-case word), does NOT indicate an end-of-sentence marker.
+#Special cases are included for prefixes that ONLY appear before 0-9 numbers.
+#Though in Vietnamese, nonbreaking prefixes aren't very common, the only thing I can think of is abbreviations
+#Some vowels followed by a period/question mark could signify ending: Ê Ô Ơ Ư
+
+A
+Ă
+Â
+B
+C
+D
+Đ
+E
+G
+H
+I
+K
+L
+M
+N
+O
+P
+Q
+R
+S
+T
+U
+V
+X
+Y
+Z
+W
+Ch
+Kh
+Ng
+Ngh
+Nh
+Ph
+Qu
+Gh
+Th
+Tr
