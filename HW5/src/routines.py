@@ -58,7 +58,7 @@ def compile_model(transformer, model_config):
         metrics=[train_accuracy]
     )
 
-def fit_model_with_callbacks(transformer, model_name, epochs=1, profile_batch='500,520'):
+def fit_model_with_callbacks(transformer, dataset, model_name, num_epochs=1, profile_batch='500,520'):
     logs = "logs/" + model_name + '_' + datetime.now().strftime("%Y%m%d-%H%M%S")
 
     tboard_callback = tf.keras.callbacks.TensorBoard(
@@ -67,4 +67,8 @@ def fit_model_with_callbacks(transformer, model_name, epochs=1, profile_batch='5
         profile_batch = profile_batch
     )
 
-    transformer.fit(dataset, epochs=epochs, callbacks = [tboard_callback])
+    transformer.fit(
+        dataset,
+        epochs=num_epochs,
+        callbacks = [tboard_callback]
+    )
