@@ -1,0 +1,75 @@
+ThetaGPUBaseline:
+  Average Step Time: 71.7 ms
+  All Others Time: 1.4 ms
+  Compilation Time: 0.0 ms
+  Output Time: 0.0 ms
+  Input Time: 0.1 ms
+  Kernel Launch Time: 47.0 ms
+  Host Compute Time: 0.9 ms
+  Device Collective Communication Time: 0.0 ms
+  Device to Device Time: 0.0 ms
+  Device Compute Time: 22.2 ms
+  TF Op Placement - Host: 8.0%
+  TF Op Placement - Device: 92.0%
+  Op Time Spent on Eager Execution - Host: 0.1%
+  Op Time Spent on Eager Execution - Device: 0.0%
+ColabBaseline:
+  Average Step Time: 175.4 ms
+  All Others Time: 4.1 ms
+  Compilation Time: 0.0 ms
+  Output Time: 0.0 ms
+  Input Time: 0.2 ms
+  Kernel Launch Time: 18.2 ms
+  Host Compute Time: 3.5 ms
+  Device Collective Communication Time: 0.0 ms
+  Device to Device Time: 0.0 ms
+  Device Compute Time: 149.4 ms
+  TF Op Placement - Host: 4.0%
+  TF Op Placement - Device: 96.0%
+  Op Time Spent on Eager Execution - Host: 34.6%
+  Op Time Spent on Eager Execution - Device: 0.0%
+ColabFlagNCache:
+  Average Step Time: 177.0 ms
+  All Others Time: 3.9 ms
+  Compilation Time: 0.0 ms
+  Output Time: 0.0 ms
+  Input Time: 0.4 ms
+  Kernel Launch Time: 18.5 ms
+  Host Compute Time: 4.1 ms
+  Device Collective Communication Time: 0.0 ms
+  Device to Device Time: 0.0 ms
+  Device Compute Time: 150.0 ms
+  TF Op Placement - Host: 4.1%
+  TF Op Placement - Device: 95.9%
+  Op Time Spent on Eager Execution - Host: 52.9%
+  Op Time Spent on Eager Execution - Device: 0.0%
+ColabMinCast:
+  Average Step Time: 175.9 ms
+  All Others Time: 3.9 ms
+  Compilation Time: 0.0 ms
+  Output Time: 0.0 ms
+  Input Time: 0.6 ms
+  Kernel Launch Time: 17.1 ms
+  Host Compute Time: 4.5 ms
+  Device Collective Communication Time: 0.0 ms
+  Device to Device Time: 0.0 ms
+  Device Compute Time: 149.8 ms
+  TF Op Placement - Host: 4.1%
+  TF Op Placement - Device: 95.9%
+  Op Time Spent on Eager Execution - Host: 5.5%
+  Op Time Spent on Eager Execution - Device: 0.0%
+ColabXLA:
+  Average Step Time: 176.1 ms
+  All Others Time: 4.3 ms
+  Compilation Time: 0.0 ms
+  Output Time: 0.0 ms
+  Input Time: 0.2 ms
+  Kernel Launch Time: 18.2 ms
+  Host Compute Time: 3.8 ms
+  Device Collective Communication Time: 0.0 ms
+  Device to Device Time: 0.0 ms
+  Device Compute Time: 149.6 ms
+  TF Op Placement - Host: 0.4%
+  TF Op Placement - Device: 99.6%
+  Op Time Spent on Eager Execution - Host: 83.7%
+  Op Time Spent on Eager Execution - Device: 0.0%
